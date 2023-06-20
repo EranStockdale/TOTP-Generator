@@ -17,8 +17,8 @@ def computeBlockSizedKey(key: bytes, hash_function, blockSize: int):
 def hmac(key: bytes, message: bytes, hash_function, blockSize: int, outputSize: int):
     block_sized_key = computeBlockSizedKey(key, hash_function, blockSize)
 
-    o_key_pad = (int.from_bytes(block_sized_key, 'big') ^ int.from_bytes(bytes(bytearray([0x5c for _ in range(blockSize)])), 'big')).to_bytes(blockSize, 'big')
-    i_key_pad = (int.from_bytes(block_sized_key, 'big') ^ int.from_bytes(bytes(bytearray([0x36 for _ in range(blockSize)])), 'big')).to_bytes(blockSize, 'big')
+    o_key_pad = (int.from_bytes(block_sized_key, 'big') ^ int.from_bytes(bytes([0x5c] * blockSize), 'big')).to_bytes(blockSize, 'big')
+    i_key_pad = (int.from_bytes(block_sized_key, 'big') ^ int.from_bytes(bytes([0x36] * blockSize), 'big')).to_bytes(blockSize, 'big')
 
     print(block_sized_key)
     print(o_key_pad)
