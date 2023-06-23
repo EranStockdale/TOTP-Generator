@@ -20,9 +20,13 @@ def hmac(key: bytes, message: bytes, hash_function, blockSize: int, outputSize: 
     o_key_pad = (int.from_bytes(block_sized_key, 'big') ^ int.from_bytes(bytes([0x5c] * blockSize), 'big')).to_bytes(blockSize, 'big')
     i_key_pad = (int.from_bytes(block_sized_key, 'big') ^ int.from_bytes(bytes([0x36] * blockSize), 'big')).to_bytes(blockSize, 'big')
 
-    print(block_sized_key)
-    print(o_key_pad)
-    print(i_key_pad)
-    print(i_key_pad + message)
+    # print(block_sized_key)
+    # print(o_key_pad)
+    # print(i_key_pad)
+    # print(i_key_pad + message)
 
-hmac("key".encode(), "this is a message".encode(), sha1, 64, 20)
+    return hash_function(o_key_pad + hash_function(i_key_pad + message))
+
+if __name__ == '__main__':
+    mac = hmac("key".encode(), "this is a message".encode(), sha1, 64, 20)
+    print(len(mac))
