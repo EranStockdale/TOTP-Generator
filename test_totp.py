@@ -19,7 +19,7 @@ if __name__ == '__main__':
     key = base64.b32decode(key.upper() + '=' * ((8 - len(key)) % 8))
     prev_totp = None
     for i in range(get_time_steps(time_step_size) - 100, get_time_steps(time_step_size)):
-        new_totp = totp(key)
+        new_totp = totp(key, counter=i - 1)
         if prev_totp != new_totp:
             print(new_totp)
             prev_totp = new_totp
@@ -27,6 +27,6 @@ if __name__ == '__main__':
     while True:
         new_totp = totp(key)
         if prev_totp != new_totp:
-            print(new_totp)
             prev_totp = new_totp
-        print(totp(key), f"Updating in {math.floor(time_step_size * (1 - (get_decimal_time_steps(time_step_size) % 1))) + 1} second(s)")
+            # print(prev_totp)
+        print(totp(key), f"Updating in {math.floor(time_step_size * (1 - (get_decimal_time_steps(time_step_size) % 1))) + 1} second(s)", end=('\r' if prev_totp == new_totp else '\n'))
