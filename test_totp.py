@@ -18,7 +18,7 @@ if __name__ == '__main__':
     for i in range(get_time_steps(time_step_size) - 100, get_time_steps(time_step_size)):
         new_totp = generate_totp(key, counter=i - 1)
         if prev_totp != new_totp:
-            print(new_totp)
+            print(i - 1, new_totp)
             prev_totp = new_totp
     
     while True:
