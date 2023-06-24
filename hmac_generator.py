@@ -25,7 +25,7 @@ def hmac(key: bytes, message: bytes, hash_function, blockSize: int, outputSize: 
     # print(i_key_pad)
     # print(i_key_pad + message)
 
-    return hash_function(o_key_pad + hash_function(i_key_pad + message))
+    return hash_function(bytearray(o_key_pad) + bytearray(hash_function(bytearray(i_key_pad) + bytearray(message))))
 
 if __name__ == '__main__':
     mac = hmac("key".encode(), "this is a message".encode(), sha1, 64, 20)

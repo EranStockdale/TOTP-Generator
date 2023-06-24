@@ -1,13 +1,15 @@
 import time
 from hotp_generator import hotp_value
-import base64
+import math
 
-def totp(key: bytes):
-    counter = int(time.time() // 30)
-    return hotp_value(key, counter.to_bytes((counter.bit_length() + 7) // 8, 'big'), 6)
+def get_decimal_time_steps(step_size = 30):
+    return time.time() / step_size
 
-if __name__ == '__main__':
-    key = input("Enter your TOTP key: ")
-    key = base64.b32encode(bytearray(key, 'ascii'))
-    while True:
-        print(totp(key))
+def get_time_steps(step_size = 30):
+    return math.floor(get_decimal_time_steps(step_size))
+
+def totp(key: bytes, counter = None):
+    if counter == None:
+        counter = get_time_steps()
+    
+    return hotp_value(key, counter.to_bytes(8, 'big'), 6)
