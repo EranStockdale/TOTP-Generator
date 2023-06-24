@@ -13,7 +13,7 @@ def bitstring_to_bytes(s): # Thanks https://stackoverflow.com/questions/32675679
     return bytes(b[::-1])
 
 def extract31(mac: bytes, i: int):
-    return bitstring_to_bytes(to_bits(mac)[i * 8 + 1:i * 8 + 4 * 8 - 1])
+    return bitstring_to_bytes(to_bits(mac)[i * 8 + 1:i * 8 + 4 * 8])
 
 def truncate(mac: bytes):
     return extract31(
