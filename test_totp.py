@@ -16,9 +16,9 @@ if __name__ == '__main__':
 
     key = input("Enter your TOTP key: ")
     # key = key.encode('ascii')
-    key = base64.b32decode(key.upper() + '=' * ((8 - len(key)) % 8))
+    key = base64.b32decode(key.upper())
     # for i in range(get_time_steps(time_step_size) - 100, get_time_steps(time_step_size)):
     #     print(totp(key = key, counter = i))
     
     while True: 
-        print(totp(key), f"Updating in {math.floor(time_step_size * (1 - (get_decimal_time_steps(time_step_size) % 1)))} second(s)")
+        print(totp(key), f"Updating in {math.floor(time_step_size * (1 - (get_decimal_time_steps(time_step_size) % 1))) + 1} second(s)")
