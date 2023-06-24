@@ -18,7 +18,7 @@ def extract31(mac: bytes, i: int):
 def truncate(mac: bytes):
     return extract31(
         mac,
-        int(to_bits(mac)[19 * 8 + 4:19 * 8 + 7], base=2)
+        int(to_bits(mac)[19 * 8 + 4:19 * 8 + 8], base=2)
     )
 
 def hotp(key: bytes, message: bytes):
